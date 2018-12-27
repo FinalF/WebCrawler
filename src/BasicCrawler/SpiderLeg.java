@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class SpiderLeg
+public abstract class SpiderLeg
 {
     // We'll use a fake USER_AGENT so the web server thinks the robot is a normal web browser.
     private static final String USER_AGENT =
@@ -83,10 +83,15 @@ public class SpiderLeg
         return bodyText.toLowerCase().contains(searchWord.toLowerCase());
     }
 
+    public abstract boolean getPageWithFilter();
 
     public List<String> getLinks()
     {
         return this.links;
+    }
+
+    public Document getHtmlDocument(){
+        return this.htmlDocument;
     }
 
 }
