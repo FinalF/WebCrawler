@@ -1,2 +1,2 @@
-# WebCrawler
+# BasicCrawler
 Play with web crawler
