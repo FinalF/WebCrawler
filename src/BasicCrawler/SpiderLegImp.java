@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 
 public class SpiderLegImp extends SpiderLeg{
     //TODO: Complete this method
-    public boolean getPageWithFilter(){
+    public boolean getPageWithFilter(String url){
         Document document = super.getHtmlDocument();
         //System.out.println(document.text());
         Elements resultLinks = document.select("div.statsValue");

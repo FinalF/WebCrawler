@@ -35,15 +35,15 @@ public abstract class SpiderLeg
             this.htmlDocument = htmlDocument;
             if (connection.response().statusCode() == 200) // 200 is the HTTP OK status code
             // indicating that everything is great.
-            {
-                System.out.println("\n**Visiting** Received web page at " + url);
-            }
+//            {
+//                System.out.println("\n**Visiting** Received web page at " + url);
+//            }
             if (!connection.response().contentType().contains("text/html")) {
                 System.out.println("**Failure** Retrieved something other than HTML");
                 return false;
             }
             Elements linksOnPage = htmlDocument.select("a[href]");
-            System.out.println("Found (" + linksOnPage.size() + ") links");
+            //System.out.println("\n**Visiting** Received web page at " + url + ". Found (" + linksOnPage.size() + ") links");
             for (Element link : linksOnPage) {
                 this.links.add(link.absUrl("href"));
             }
@@ -83,7 +83,7 @@ public abstract class SpiderLeg
         return bodyText.toLowerCase().contains(searchWord.toLowerCase());
     }
 
-    public abstract boolean getPageWithFilter();
+    public abstract boolean getPageWithFilter(String url);
 
     public List<String> getLinks()
     {

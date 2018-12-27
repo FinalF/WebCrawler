@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class Spider {
-    private static final int MAX_PAGES_TO_SEARCH = 2;
-    private Set<String> pagesVisited = new HashSet<String>();
-    private List<String> pagesToVisit = new LinkedList<String>();
+    protected Set<String> pagesVisited = new HashSet<String>();
+    protected List<String> pagesToVisit = new LinkedList<String>();
 
     protected String nextUrl() {
         if (pagesToVisit.size() == 0)

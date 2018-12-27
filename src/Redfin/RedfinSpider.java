@@ -10,18 +10,27 @@ import java.util.List;
 import java.util.Set;
 
 public class RedfinSpider extends Spider {
-    private static final int MAX_PAGES_TO_SEARCH = 2;
-    private Set<String> pagesVisited = new HashSet<String>();
-    private List<String> pagesToVisit = new LinkedList<String>();
+    private static final int MAX_PAGES_TO_SEARCH = 100;
 
+    @Override
+    protected String nextUrl(){
+        if (pagesToVisit.size() == 0)
+            return null;
+        String nextUrl = pagesToVisit.remove(0);
+        while (this.pagesVisited.contains(nextUrl) || this.pagesVisited.contains(nextUrl.split("#")[0])) {
+            nextUrl = pagesToVisit.remove(0);
+        }
+        this.pagesVisited.add(nextUrl);
+        this.pagesVisited.add(nextUrl.split("#")[0]);
+        return nextUrl;
+    }
 
     @Override
     public void scrap(String url) {
         {
-
             while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH ) {
                 String currentUrl;
-                SpiderLeg leg = new SpiderLegImp();
+                SpiderLeg leg = new RedfinSpiderLegImp();
                 if (this.pagesToVisit.isEmpty()) {
                     currentUrl = url;
                     this.pagesVisited.add(url);
@@ -29,14 +38,12 @@ public class RedfinSpider extends Spider {
                     currentUrl = this.nextUrl();
                 }
                 leg.crawl(currentUrl);
-                boolean success = leg.getPageWithFilter();
-                if (success) {
-                    System.out.println(String.format("**Success** Word %s found at %s", currentUrl));
-                    break;
+                boolean success = leg.getPageWithFilter(currentUrl);
+                if(success){
+                    //Output the valid results
                 }
                 this.pagesToVisit.addAll(leg.getLinks());
             }
-
             System.out.println(String.format("**Done** Visited %s web page(s)", this.pagesVisited.size()));
         }
     }
