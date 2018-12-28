@@ -13,7 +13,7 @@ public class RedfinSpider extends Spider {
     private static final int MAX_PAGES_TO_SEARCH = 100;
 
     @Override
-    protected String nextUrl(){
+    protected String nextUrl() {
         if (pagesToVisit.size() == 0)
             return null;
         String nextUrl = pagesToVisit.remove(0);
@@ -28,18 +28,29 @@ public class RedfinSpider extends Spider {
     @Override
     public void scrap(String url) {
         {
-            while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH ) {
+            while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH) {
                 String currentUrl;
                 SpiderLeg leg = new RedfinSpiderLegImp();
                 if (this.pagesToVisit.isEmpty()) {
                     currentUrl = url;
-                    this.pagesVisited.add(url);
+                    if(!this.pagesVisited.add(url)){
+                        System.out.println("No new links. Terminate!");
+                        break;
+                    }
                 } else {
                     currentUrl = this.nextUrl();
                 }
+                if(!currentUrl.contains("Seattle")){
+                    continue;
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 leg.crawl(currentUrl);
                 boolean success = leg.getPageWithFilter(currentUrl);
-                if(success){
+                if (success) {
                     //Output the valid results
                 }
                 this.pagesToVisit.addAll(leg.getLinks());
