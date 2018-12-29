@@ -1,30 +1,32 @@
 package Redfin.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GetConfig {
 
-    public static boolean loadConfig() {
+    public static Map<String, Double> loadConfig() {
+
+        BufferedReader br = null;
+        Map<String, Double> map = new HashMap<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("/Users/flame/JAVA/WebCrawler/src/Redfin/configurations/criteria.csv"));
+            br = new BufferedReader(new FileReader("/Users/flame/JAVA/WebCrawler/src/Redfin/configurations/criteria.csv"));
             String line = null;
-            Map<String, String> map = new HashMap<String, String>();
+
 
             while ((line = br.readLine()) != null) {
-                //String str[] = line.split(",");
-                System.out.println(line);
+                String str[] = line.split(",");
+                map.put(str[0], Double.parseDouble(str[1]));
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+
+        return map;
     }
 
 }

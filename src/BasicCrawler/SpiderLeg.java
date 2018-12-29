@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -51,6 +52,13 @@ public abstract class SpiderLeg {
             return true;
         } catch (IOException ioe) {
             System.out.println("IOException: " + ioe.getMessage());
+            File input = new File("/Users/flame/JAVA/WebCrawler/src/Redfin/configurations/redfinPage1.html");
+            try {
+                this.htmlDocument = Jsoup.parse(input, "UTF-8");
+               // System.out.println(this.htmlDocument.title());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             ioe.printStackTrace();
             return false;
         } catch (Exception e) {
@@ -79,7 +87,7 @@ public abstract class SpiderLeg {
         return bodyText.toLowerCase().contains(searchWord.toLowerCase());
     }
 
-    public abstract boolean getPageWithFilter(String url);
+    public abstract boolean getPageWithFilter(String url, Map<String, Double> config);
 
     public List<String> getLinks() {
         return this.links;

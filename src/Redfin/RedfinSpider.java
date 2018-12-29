@@ -2,16 +2,14 @@ package Redfin;
 
 import BasicCrawler.Spider;
 import BasicCrawler.SpiderLeg;
-import BasicCrawler.SpiderLegImp;
+import Redfin.util.GetConfig;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
+
 
 public class RedfinSpider extends Spider {
     private static final int MAX_PAGES_TO_SEARCH = 1;
-
+    private static final Map<String, Double> config = GetConfig.loadConfig();
     @Override
     public String nextUrl() {
         if (pagesToVisit.size() == 0)
@@ -46,10 +44,7 @@ public class RedfinSpider extends Spider {
                     e.printStackTrace();
                 }
                 leg.crawl(currentUrl);
-                boolean success = leg.getPageWithFilter(currentUrl);
-                if (success) {
-                    //Output the valid results
-                }
+                leg.getPageWithFilter(currentUrl, config);
                 this.pagesToVisit.addAll(leg.getLinks());
             }
             System.out.println(String.format("**Done** Visited %s web page(s)", this.pagesVisited.size()));

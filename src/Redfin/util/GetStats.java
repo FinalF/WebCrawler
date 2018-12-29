@@ -9,7 +9,7 @@ public class GetStats {
 
     public static void setDocument(Document doc) {
         document = doc;
-        //System.out.println("Document set: "+document);
+        System.out.println("Document set: "+document);
     }
 
     /**
@@ -17,12 +17,12 @@ public class GetStats {
      *
      * @return
      */
-    public static long getPrice() {
+    public static double getPrice() {
         Elements priceBlock = document.select("div.info-block.price");
         //System.out.println(priceBlock);
         if (priceBlock.size() > 0) {
             Element e = priceBlock.first();
-            return Long.parseLong(e.text().substring(1).replace("Price", "").replace(",", ""));
+            return Double.parseDouble(e.text().substring(1).replace("Price", "").replace(",", ""));
         }
         return -1;
     }
@@ -60,7 +60,7 @@ public class GetStats {
         }
     }
 
-    public static double getSqt() {
+    public static double getSqrt() {
         Elements homeStatsBlock = document.select("div.info-block");
         try {
             //System.out.println(homeStatsBlock.select("[data-rf-test-id=\"abp-sqFt\"]").first().select("span.statsValue").first().text().replace(",", ""));
@@ -71,13 +71,13 @@ public class GetStats {
     }
 
 
-    public static int getBuildYear() {
+    public static double getBuildYear() {
         Elements keyDetailStatsBlock = document.select("div.keyDetail");
         for (Element el : keyDetailStatsBlock) {
             String stat = el.text();
             if (stat.contains("Built")) {
                 try {
-                    return Integer.parseInt(stat.replace("Built", ""));
+                    return Double.parseDouble(stat.replace("Built", ""));
                 } catch (Exception e) {
                     return -1;
                 }
