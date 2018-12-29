@@ -1,5 +1,6 @@
 package BasicCrawler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,9 +31,13 @@ public abstract class SpiderLeg {
             Connection connection = Jsoup.connect(url).userAgent(USER_AGENT).timeout(180000).followRedirects(true);
             Document htmlDocument = connection.get();
             this.htmlDocument = htmlDocument;
-            if (connection.response().statusCode() == 200) // 200 is the HTTP OK status code
+            //System.out.println(this.htmlDocument);//get doc for testing
+            if (connection.response().statusCode() != 200) // 200 is the HTTP OK status code
             {
-                System.out.println("\n**Visiting** Received web page at " + url);
+                //System.out.println("\n**Visiting** Received web page at " + url);
+                File input = new File("redfinPage1.html");
+                this.htmlDocument = Jsoup.parse(input, "UTF-8");
+
             }
             if (!connection.response().contentType().contains("text/html")) {
                 System.out.println("**Failure** Retrieved something other than HTML");

@@ -21,6 +21,9 @@ public class RedfinSpiderLegImp extends SpiderLeg{
             System.out.println("Bed: " + GetStats.getBeds());
             System.out.println("Bath: " + GetStats.getBaths());
             System.out.println("Square Feet: " + GetStats.getSqt());
+            System.out.println("Build Year: " + GetStats.getBuildYear());
+            System.out.println("County: " + GetStats.getCounty());
+            System.out.println("Community: " + GetStats.getCommunity());
             System.out.println("====");
             return true;
         }

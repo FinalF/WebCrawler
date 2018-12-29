@@ -14,6 +14,7 @@ public class GetStats {
 
     /**
      * get price of active list
+     *
      * @return
      */
     public static long getPrice() {
@@ -44,8 +45,7 @@ public class GetStats {
         Elements homeStatsBlock = document.select("div.info-block");
         try {
             return Double.parseDouble(homeStatsBlock.select("[data-rf-test-id=\"abp-beds\"]").first().text().replace("Beds", "").replace("Bed", ""));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -55,8 +55,7 @@ public class GetStats {
         try {
             //System.out.println(homeStatsBlock.select("[data-rf-test-id=\"abp-baths\"]").first().text());
             return Double.parseDouble(homeStatsBlock.select("[data-rf-test-id=\"abp-baths\"]").first().text().replace("Baths", "").replace("Bath", ""));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -66,9 +65,47 @@ public class GetStats {
         try {
             //System.out.println(homeStatsBlock.select("[data-rf-test-id=\"abp-sqFt\"]").first().select("span.statsValue").first().text().replace(",", ""));
             return Double.parseDouble(homeStatsBlock.select("[data-rf-test-id=\"abp-sqFt\"]").first().select("span.statsValue").first().text().replace(",", ""));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return -1;
         }
+    }
+
+
+    public static int getBuildYear() {
+        Elements keyDetailStatsBlock = document.select("div.keyDetail");
+        for (Element el : keyDetailStatsBlock) {
+            String stat = el.text();
+            if (stat.contains("Built")) {
+                try {
+                    return Integer.parseInt(stat.replace("Built", ""));
+                } catch (Exception e) {
+                    return -1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static String getCounty() {
+        Elements keyDetailStatsBlock = document.select("div.keyDetail");
+        for (Element el : keyDetailStatsBlock) {
+            String stat = el.text();
+            if (stat.contains("County")) {
+                return stat.replace("County", "");
+
+            }
+        }
+        return "[N/A] County not captured";
+    }
+    public static String getCommunity() {
+        Elements keyDetailStatsBlock = document.select("div.keyDetail");
+        for (Element el : keyDetailStatsBlock) {
+            String stat = el.text();
+            if (stat.contains("Community")) {
+                return stat.replace("Community", "");
+
+            }
+        }
+        return "[N/A] Community not captured";
     }
 }

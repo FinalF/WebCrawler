@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Set;
 
 public class RedfinSpider extends Spider {
-    private static final int MAX_PAGES_TO_SEARCH = 100;
+    private static final int MAX_PAGES_TO_SEARCH = 1;
 
     @Override
-    protected String nextUrl() {
+    public String nextUrl() {
         if (pagesToVisit.size() == 0)
             return null;
         String nextUrl = pagesToVisit.remove(0);
@@ -40,11 +40,8 @@ public class RedfinSpider extends Spider {
                 } else {
                     currentUrl = this.nextUrl();
                 }
-                if(!currentUrl.contains("Seattle")){
-                    continue;
-                }
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
