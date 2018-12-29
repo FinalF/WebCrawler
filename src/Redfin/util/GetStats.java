@@ -9,7 +9,7 @@ public class GetStats {
 
     public static void setDocument(Document doc) {
         document = doc;
-        System.out.println("Document set: "+document);
+        //System.out.println("Document set: "+document);
     }
 
     /**
@@ -34,7 +34,7 @@ public class GetStats {
         if (addrBlock.size() > 0) {
             Element e = addrBlock.first();
             //System.out.println(pe.text());
-            return e.text();
+            return e.text().replace(","," ");
         }
         return "[N/A] Address not captured";
     }

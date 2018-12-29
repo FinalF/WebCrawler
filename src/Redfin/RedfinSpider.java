@@ -8,7 +8,7 @@ import java.util.Map;
 
 
 public class RedfinSpider extends Spider {
-    private static final int MAX_PAGES_TO_SEARCH = 1;
+    private static final int MAX_PAGES_TO_SEARCH = 1000;
     private static final Map<String, Double> config = GetConfig.loadConfig();
     @Override
     public String nextUrl() {
@@ -25,7 +25,7 @@ public class RedfinSpider extends Spider {
 
     @Override
     public void scrap(String url) {
-        {
+
             while (this.pagesVisited.size() < MAX_PAGES_TO_SEARCH) {
                 String currentUrl;
                 SpiderLeg leg = new RedfinSpiderLegImp();
@@ -39,7 +39,7 @@ public class RedfinSpider extends Spider {
                     currentUrl = this.nextUrl();
                 }
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -48,7 +48,7 @@ public class RedfinSpider extends Spider {
                 this.pagesToVisit.addAll(leg.getLinks());
             }
             System.out.println(String.format("**Done** Visited %s web page(s)", this.pagesVisited.size()));
-        }
+
     }
 
 

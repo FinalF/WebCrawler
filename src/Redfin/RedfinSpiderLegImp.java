@@ -18,17 +18,18 @@ public class RedfinSpiderLegImp extends SpiderLeg {
             Document document = super.getHtmlDocument();
             //System.out.println(document.head());
             GetStats.setDocument(document);
-            System.out.println("====");
-            System.out.println("URL: " + url);
-            System.out.println("Price: " + GetStats.getPrice());
-            System.out.println("Address: " + GetStats.getAddr());
-            System.out.println("Bed: " + GetStats.getBeds());
-            System.out.println("Bath: " + GetStats.getBaths());
-            System.out.println("Square Feet: " + GetStats.getSqrt());
-            System.out.println("Build Year: " + GetStats.getBuildYear());
-            System.out.println("County: " + GetStats.getCounty());
-            System.out.println("Community: " + GetStats.getCommunity());
-            System.out.println("====");
+//            System.out.println("====");
+//            System.out.println("URL: " + url);
+//            System.out.println("Price: " + GetStats.getPrice());
+//            System.out.println("Address: " + GetStats.getAddr());
+//            System.out.println("Bed: " + GetStats.getBeds());
+//            System.out.println("Bath: " + GetStats.getBaths());
+//            System.out.println("Square Feet: " + GetStats.getSqrt());
+//            System.out.println("Build Year: " + GetStats.getBuildYear());
+//            System.out.println("County: " + GetStats.getCounty());
+//            System.out.println("Community: " + GetStats.getCommunity());
+//            System.out.println("====");
+            if(!url.contains("home")) return false;
             double price = GetStats.getPrice();
             if (price > config.get("Price")) return false;
             double bed = GetStats.getBeds();
@@ -52,7 +53,7 @@ public class RedfinSpiderLegImp extends SpiderLeg {
             list.add(community);
             list.add(county);
             list.add(url);
-            DBTool.writeToFile("/Users/flame/JAVA/WebCrawler/src/Redfin/output", list);
+            DBTool.writeToFile("/Users/flame/JAVA/WebCrawler/src/Redfin/output/", list);
 
             return true;
         } catch (Exception e) {
