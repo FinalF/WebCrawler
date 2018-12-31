@@ -29,7 +29,7 @@ public class RedfinSpiderLegImp extends SpiderLeg {
 //            System.out.println("County: " + GetStats.getCounty());
 //            System.out.println("Community: " + GetStats.getCommunity());
 //            System.out.println("====");
-            if(!url.contains("home")) return false;
+            if(!url.contains("home") || !url.contains("www.redfin.com/WA")) return false;
             double price = GetStats.getPrice();
             if (price > config.get("Price")) return false;
             double bed = GetStats.getBeds();

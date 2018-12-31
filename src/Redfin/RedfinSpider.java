@@ -43,8 +43,10 @@ public class RedfinSpider extends Spider {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                leg.crawl(currentUrl);
-                leg.getPageWithFilter(currentUrl, config);
+                if(url.contains("www.redfin.com")) {
+                    leg.crawl(currentUrl);
+                    leg.getPageWithFilter(currentUrl, config);
+                }
                 this.pagesToVisit.addAll(leg.getLinks());
             }
             System.out.println(String.format("**Done** Visited %s web page(s)", this.pagesVisited.size()));
